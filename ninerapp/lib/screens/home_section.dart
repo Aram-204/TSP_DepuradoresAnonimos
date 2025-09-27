@@ -27,12 +27,12 @@ class _HomeSectionState extends State<HomeSection> {
             children: [
               SizedBox(height: 20),
               infoSection(),
-              SizedBox(height: 30),
+              SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   iconInfo(AppColors.addChildColor, FontAwesomeIcons.baby, "Añadir hij@"),
-                  SizedBox(width: 30),
+                  SizedBox(width: 20),
                   iconInfo(AppColors.seeBabysittersColor, FontAwesomeIcons.personBreastfeeding, "Ver niñeros"),
                 ]
               ),
@@ -41,11 +41,11 @@ class _HomeSectionState extends State<HomeSection> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   iconInfo(AppColors.historyColor, FontAwesomeIcons.clock, "Historial"),
-                  SizedBox(width: 30),
+                  SizedBox(width: 20),
                   iconInfo(AppColors.settingsColor, FontAwesomeIcons.gear, "Opciones"),
                 ]
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
