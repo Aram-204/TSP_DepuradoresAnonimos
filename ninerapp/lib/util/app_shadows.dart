@@ -4,8 +4,8 @@ import 'package:ninerapp/util/app_colors.dart';
 class AppShadows {
   static const BoxShadow indexBoxShadow = BoxShadow(
     color: AppColors.shadowColor,
-    spreadRadius: 0.25,
+    spreadRadius: 0.5,
     blurRadius: 4,
-    offset: Offset(0, 6)
+    offset: Offset(0, 5)
   );
 }
