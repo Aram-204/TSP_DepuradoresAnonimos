@@ -1,0 +1,212 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ninerapp/util/app_colors.dart';
+import 'package:ninerapp/util/app_shadows.dart';
+import 'package:ninerapp/util/app_textstyles.dart';
+
+class FormChildScreen extends StatefulWidget {
+  const FormChildScreen({super.key});
+
+  @override
+  State<FormChildScreen> createState() => _FormChildScreenState();
+}
+
+class _FormChildScreenState extends State<FormChildScreen> {
+  // TODO luego poner para que se pueda usar para editar y obtener datos de parametros
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _birthdateController = TextEditingController();
+  final TextEditingController _otherDisabilityController = TextEditingController();
+
+  String? _selectedGender = 'Mujer';
+  bool _disabilityFisica = false;
+  bool _disabilityAuditiva = false;
+  bool _disabilityVisual = false;
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _lastNameController.dispose();
+    _birthdateController.dispose();
+    _otherDisabilityController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Añadir Hijo(a)', style: AppTextstyles.appBarText),
+        centerTitle: false,
+        backgroundColor: AppColors.primary,
+      ),
+
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Nombre(s):", style: AppTextstyles.bodyText),
+            const SizedBox(height: 8),
+            _buildTextField(_nameController, "Ingresar nombre(s)"),
+            const SizedBox(height: 20),
+
+            Text("Apellido(s):", style: AppTextstyles.bodyText),
+            const SizedBox(height: 8),
+            _buildTextField(_lastNameController, "Ingresar apellido(s)"),
+            const SizedBox(height: 20),
+
+            Text("Fecha de nacimiento:", style: AppTextstyles.bodyText),
+            const SizedBox(height: 8),
+            GestureDetector( // Con esto se puede hacer que se abra un cuadro para la fecha
+              onTap: () => _selectDate(context),
+              child: AbsorbPointer(
+                child: _buildTextField(_birthdateController, "Ingresar fecha de nacimiento"),
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            Text("Sexo:", style: AppTextstyles.bodyText),
+            Row(
+              children: [
+                Radio<String>(
+                  value: 'Mujer',
+                  groupValue: _selectedGender,
+                  onChanged: (String? value) {
+                    setState(() {
+                      _selectedGender = value;
+                    });
+                  },
+                ),
+                const Text('Mujer', style: AppTextstyles.bodyText),
+                const SizedBox(width: 20),
+                Radio<String>(
+                  value: 'Hombre',
+                  groupValue: _selectedGender,
+                  onChanged: (String? value) {
+                    setState(() {
+                      _selectedGender = value;
+                    });
+                  },
+                ),
+                const Text('Hombre', style: AppTextstyles.bodyText),
+              ],
+            ),
+            const SizedBox(height: 20),
+
+            Text("Discapacidades:", style: AppTextstyles.bodyText),
+            _buildCheckboxListTile('Física', _disabilityFisica, (bool? value) {
+              setState(() {
+                _disabilityFisica = value!;
+              });
+            }),
+            _buildCheckboxListTile('Auditiva', _disabilityAuditiva, (bool? value) {
+              setState(() {
+                _disabilityAuditiva = value!;
+              });
+            }),
+            _buildCheckboxListTile('Visual', _disabilityVisual, (bool? value) {
+              setState(() {
+                _disabilityVisual = value!;
+              });
+            }),
+            const SizedBox(height: 10),
+
+            Text("Otra(s):", style: AppTextstyles.bodyText),
+            const SizedBox(height: 8),
+            _buildTextField(_otherDisabilityController, "Ingresar otra(s) discapacidad(es)"),
+            const SizedBox(height: 30),
+
+            Center(child: saveChildButton()),
+            const SizedBox(height: 15),
+          ],
+        ),
+      ),
+    );
+  }
+
+  ElevatedButton saveChildButton() {
+    return ElevatedButton(
+      onPressed: () {
+        debugPrint('Guardando niño:');
+        debugPrint('Nombre: ${_nameController.text}');
+        debugPrint('Apellido: ${_lastNameController.text}');
+        debugPrint('Fecha de nacimiento: ${_birthdateController.text}');
+        debugPrint('Sexo: $_selectedGender');
+        debugPrint('Discapacidades: Física: $_disabilityFisica, Auditiva: $_disabilityAuditiva, Visual: $_disabilityVisual');
+        if (_otherDisabilityController.text.isNotEmpty) {
+          debugPrint('Otra: ${_otherDisabilityController.text}');
+        }
+        // Navigator.of(context).pop();
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.seeBabysittersColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 3,
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 0),
+        width: 120,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Guardar', style: AppTextstyles.buttonText),
+            SizedBox(width: 15),
+            Icon(FontAwesomeIcons.plus, size: 16, color: AppColors.fontColor),
+          ]
+        ),
+      )
+    );
+  }
+  
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (picked != null) {
+      setState(() {
+        _birthdateController.text = "${picked.day}/${picked.month}/${picked.year}";
+      });
+    }
+  }
+
+  Widget _buildTextField(TextEditingController controller, String hintText) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        color: AppColors.lightBlue,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [AppShadows.inputShadow],
+      ),
+      child: TextField(
+        controller: controller,
+        style: AppTextstyles.bodyText,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          isDense: true,
+          contentPadding: const EdgeInsets.symmetric(vertical: 12),
+          hintText: hintText,
+          hintStyle: AppTextstyles.bodyText.copyWith(color: AppColors.grey),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCheckboxListTile(String title, bool value, ValueChanged<bool?> onChanged) {
+    return Row(
+      children: [
+        Checkbox(
+          value: value,
+          onChanged: onChanged,
+          activeColor: AppColors.currentSectionColor,
+        ),
+        Text(title, style: AppTextstyles.bodyText),
+      ],
+    );
+  }
+}

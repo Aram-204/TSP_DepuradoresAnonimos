@@ -25,4 +25,16 @@ class AppTextstyles {
     color: AppColors.fontColor,
     fontWeight: FontWeight.bold,
   );
+
+  static const TextStyle buttonText = TextStyle(
+    fontSize: 16,
+    color: AppColors.fontColor,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle bodyText = TextStyle(
+    fontSize: 16,
+    color: AppColors.fontColor,
+    fontWeight: FontWeight.bold,
+  );
 }

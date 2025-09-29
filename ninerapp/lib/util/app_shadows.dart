@@ -8,4 +8,11 @@ class AppShadows {
     blurRadius: 4,
     offset: Offset(0, 5)
   );
+
+  static const BoxShadow inputShadow = BoxShadow(
+    color: AppColors.shadowColor,
+    spreadRadius: 0.1,
+    blurRadius: 2,
+    offset: Offset(0, 3)
+  );
 }

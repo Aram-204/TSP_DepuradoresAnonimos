@@ -12,5 +12,7 @@ class AppColors {
   static const Color settingsColor = Color.fromARGB(255, 234, 234, 234);
   static const Color helpColor = Color.fromARGB(255, 200, 200, 200);
 
+  static const Color lightBlue = Color.fromARGB(255, 242, 233, 255);
+  static const Color grey = Color.fromARGB(255, 158, 158, 158);
   static const Color shadowColor = Color.fromARGB(150, 158, 158, 158);
 }

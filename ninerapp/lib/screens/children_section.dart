@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ninerapp/models/child.dart';
+import 'package:ninerapp/screens/form_child.dart';
 import 'package:ninerapp/util/app_colors.dart';
 import 'package:ninerapp/util/app_textstyles.dart';
 
@@ -22,6 +24,7 @@ class _ChildrenSectionState extends State<ChildrenSection> {
 
   List<Child> childrenList = [
     Child(id: '1', name: 'Emmanuel Juan', lastName: 'Ortiz Juarez', birthdate: DateTime(2020, 1, 1), isFemale: false),
+    Child(id: '2', name: 'Emmanuel Juan2', lastName: 'Ortiz Juarez2', birthdate: DateTime(2023, 1, 1), isFemale: true),
   ];
 
   @override
@@ -53,13 +56,48 @@ class _ChildrenSectionState extends State<ChildrenSection> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      ...childrenList.map((child) => Text(child.name)).toList(),
+                      // hacer tarjetas y añadir boton de añadir hijo
+                      ...childrenList.map((child) => Text(child.name)),
                     ],
                   ),
                 ),
               ),
-            ]
+            ],
+            SizedBox(height: 10),
+            addChildButton(),
+            SizedBox(height: 20),
           ],
+        ),
+      )
+    );
+  }
+
+  ElevatedButton addChildButton() {
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const FormChildScreen(),
+          ),
+        );
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.seeBabysittersColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 3,
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 0),
+        width: 150,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Añadir Hijo(a)', style: AppTextstyles.buttonText),
+            SizedBox(width: 15),
+            Icon(FontAwesomeIcons.plus, size: 16, color: AppColors.fontColor),
+          ]
         ),
       )
     );
