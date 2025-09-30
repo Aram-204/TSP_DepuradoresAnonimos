@@ -10,11 +10,13 @@ dependencies:
   flutter:
     sdk: flutter
 
+  provider: ^6.1.5
   font_awesome_flutter: ^10.9.1
   supabase_flutter: ^2.10.1
   flutter_dotenv: ^6.0.0
   get_it: ^8.2.0
   flutter_launcher_icons: ^0.14.4
+  intl: ^0.20.2
 
 flutter_launcher_icons:
   ios: false
@@ -32,3 +34,5 @@ flutter:
   uses-material-design: true
   assets:
     - .env
+    - assets/img/niño.png
+    - assets/img/niña.png
