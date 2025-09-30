@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ninerapp/models/child.dart';
-import 'package:ninerapp/screens/form_child.dart';
-import 'package:ninerapp/util/app_colors.dart';
-import 'package:ninerapp/util/app_textstyles.dart';
+import 'package:ninerapp/dependency_inyection.dart';
+import 'package:ninerapp/domain/entities/child.dart';
+import 'package:ninerapp/domain/repositories/ichild_repository.dart';
+import 'package:ninerapp/presentation/screens/form_child.dart';
+import 'package:ninerapp/core/constants/app_colors.dart';
+import 'package:ninerapp/core/constants/app_textstyles.dart';
+import 'package:ninerapp/presentation/widgets/child_card.dart';
 
 class ChildrenSection extends StatefulWidget {
   const ChildrenSection({super.key});
@@ -13,7 +16,11 @@ class ChildrenSection extends StatefulWidget {
 }
 
 class _ChildrenSectionState extends State<ChildrenSection> {
-  // Añadir un init para llamar luego a load children
+  final IChildRepository _childRepository = getIt<IChildRepository>();
+  List<Child> childrenList = [];
+  bool _isLoading = true;
+  String? _errorMessage;
+
   final List<String> _orderList = [
     'Ordenar por nombre (A-Z)',
     'Ordenar por nombre (Z-A)',
@@ -22,10 +29,38 @@ class _ChildrenSectionState extends State<ChildrenSection> {
   ];
   String _orderBy = 'Ordenar por nombre (A-Z)';
 
-  List<Child> childrenList = [
-    Child(id: '1', name: 'Emmanuel Juan', lastName: 'Ortiz Juarez', birthdate: DateTime(2020, 1, 1), isFemale: false),
-    Child(id: '2', name: 'Emmanuel Juan2', lastName: 'Ortiz Juarez2', birthdate: DateTime(2023, 1, 1), isFemale: true),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _loadChildren();
+  }
+
+  Future<void> _loadChildren() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      final childrenRes = await _childRepository.getChildrenByOrder(_orderBy);
+      setState(() {
+        childrenList = childrenRes;
+
+        _isLoading = false;
+      });
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          if (e.toString().contains("SocketException")) {
+            _errorMessage = 'No hay conexión a internet. Favor de verificar la red o intentar de nuevo más tarde.';
+          } else {
+            _errorMessage = 'Error al cargar los hijos: ${e.toString()}';
+          }
+          _isLoading = false;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +77,15 @@ class _ChildrenSectionState extends State<ChildrenSection> {
             SizedBox(height: 10),
             changeOrderContainer(),
             SizedBox(height: 10),
-            if (childrenList.isEmpty) ...[
+            if (_isLoading)
+              Expanded(child: Center(child: CircularProgressIndicator(color: AppColors.primary)))
+            else if (_errorMessage != null)
+              Expanded(child: Center(child: Text(_errorMessage!, style: AppTextstyles.appBarText)))
+            else if (childrenList.isEmpty) ...[
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("No tienes hijos registrados...", style: AppTextstyles.appBarText),
-                  ],
+                  children: [Text("No tienes hijos registrados...", style: AppTextstyles.appBarText)],
                 ),
               ),
             ] else ... [
@@ -56,8 +93,21 @@ class _ChildrenSectionState extends State<ChildrenSection> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      // hacer tarjetas y añadir boton de añadir hijo
-                      ...childrenList.map((child) => Text(child.name)),
+                      ...childrenList.map((child) {
+                        return ChildCard(
+                          child: child,
+                          onEdit: () {
+                          },
+                          onDelete: () {
+                            // TODO pedir confirmacion antes de eliminar hijo
+                            _childRepository.deleteChild(child.id!).then((_) {
+                              _loadChildren();
+                            }).catchError((e) {
+                              // TODO mostrar modal diciendo que ocurrio un error al borrar al hijo
+                            });
+                          },
+                        );
+                      }),
                     ],
                   ),
                 ),
@@ -77,7 +127,7 @@ class _ChildrenSectionState extends State<ChildrenSection> {
       onPressed: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const FormChildScreen(),
+            builder: (context) => FormChildScreen(onSave: () {_loadChildren();}),
           ),
         );
       },
@@ -122,6 +172,7 @@ class _ChildrenSectionState extends State<ChildrenSection> {
             onChanged: (String? newValue) {
               setState(() {
                 _orderBy = newValue!;
+                _loadChildren();
               });
             },
           ),

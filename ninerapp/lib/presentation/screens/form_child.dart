@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ninerapp/util/app_colors.dart';
-import 'package:ninerapp/util/app_shadows.dart';
-import 'package:ninerapp/util/app_textstyles.dart';
+import 'package:ninerapp/core/constants/app_colors.dart';
+import 'package:ninerapp/core/constants/app_shadows.dart';
+import 'package:ninerapp/core/constants/app_textstyles.dart';
+import 'package:ninerapp/dependency_inyection.dart';
+import 'package:ninerapp/domain/entities/child.dart';
+import 'package:ninerapp/domain/repositories/ichild_repository.dart';
 
 class FormChildScreen extends StatefulWidget {
-  const FormChildScreen({super.key});
+  final VoidCallback onSave;
+
+  const FormChildScreen({
+    super.key,
+    required this.onSave,
+  });
 
   @override
   State<FormChildScreen> createState() => _FormChildScreenState();
@@ -13,6 +22,7 @@ class FormChildScreen extends StatefulWidget {
 
 class _FormChildScreenState extends State<FormChildScreen> {
   // TODO luego poner para que se pueda usar para editar y obtener datos de parametros
+  final IChildRepository _childRepository = getIt<IChildRepository>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _birthdateController = TextEditingController();
@@ -127,17 +137,32 @@ class _FormChildScreenState extends State<FormChildScreen> {
 
   ElevatedButton saveChildButton() {
     return ElevatedButton(
-      onPressed: () {
-        debugPrint('Guardando niño:');
-        debugPrint('Nombre: ${_nameController.text}');
-        debugPrint('Apellido: ${_lastNameController.text}');
-        debugPrint('Fecha de nacimiento: ${_birthdateController.text}');
-        debugPrint('Sexo: $_selectedGender');
-        debugPrint('Discapacidades: Física: $_disabilityFisica, Auditiva: $_disabilityAuditiva, Visual: $_disabilityVisual');
-        if (_otherDisabilityController.text.isNotEmpty) {
-          debugPrint('Otra: ${_otherDisabilityController.text}');
-        }
-        // Navigator.of(context).pop();
+      onPressed: () async {
+        final String newName = _nameController.text.trim();
+        final String newLastName = _lastNameController.text.trim();
+        final DateTime newBirthdate = DateFormat('dd-MM-yyyy').parse(_birthdateController.text.trim());
+        final bool newIsFemale = _selectedGender == 'Mujer';
+        final bool newDisabilityFisica = _disabilityFisica;
+        final bool newDisabilityAuditiva = _disabilityAuditiva;
+        final bool newDisabilityVisual = _disabilityVisual;
+        final String? newOtherDisability = _otherDisabilityController.text.trim().isEmpty ? null : _otherDisabilityController.text.trim();
+
+        await _childRepository.addChild(
+          Child(
+            name: newName,
+            lastName: newLastName,
+            birthdate: newBirthdate,
+            isFemale: newIsFemale,
+            disabilityFisica: newDisabilityFisica,
+            disabilityAuditiva: newDisabilityAuditiva,
+            disabilityVisual: newDisabilityVisual,
+            otherDisability: newOtherDisability,
+          )
+        );
+
+        if (!mounted) return;
+        widget.onSave();
+        Navigator.of(context).pop();
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.seeBabysittersColor,
@@ -170,7 +195,7 @@ class _FormChildScreenState extends State<FormChildScreen> {
     );
     if (picked != null) {
       setState(() {
-        _birthdateController.text = "${picked.day}/${picked.month}/${picked.year}";
+        _birthdateController.text = "${picked.day}-${picked.month}-${picked.year}";
       });
     }
   }

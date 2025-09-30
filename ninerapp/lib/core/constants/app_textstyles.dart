@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ninerapp/util/app_colors.dart';
+import 'package:ninerapp/core/constants/app_colors.dart';
 
 class AppTextstyles {
   static const TextStyle footerText = TextStyle(
@@ -34,6 +34,12 @@ class AppTextstyles {
 
   static const TextStyle bodyText = TextStyle(
     fontSize: 16,
+    color: AppColors.fontColor,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle childCardText = TextStyle(
+    fontSize: 14,
     color: AppColors.fontColor,
     fontWeight: FontWeight.bold,
   );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ninerapp/util/app_colors.dart';
+import 'package:ninerapp/core/constants/app_colors.dart';
 
 class AppShadows {
   static const BoxShadow indexBoxShadow = BoxShadow(

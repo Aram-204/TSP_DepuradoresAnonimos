@@ -12,7 +12,14 @@ class AppColors {
   static const Color settingsColor = Color.fromARGB(255, 234, 234, 234);
   static const Color helpColor = Color.fromARGB(255, 200, 200, 200);
 
+  static const Color red = Color.fromARGB(255, 153, 19, 19);
+  static const Color white = Color.fromARGB(255, 248, 248, 248);
   static const Color lightBlue = Color.fromARGB(255, 242, 233, 255);
   static const Color grey = Color.fromARGB(255, 158, 158, 158);
   static const Color shadowColor = Color.fromARGB(150, 158, 158, 158);
+
+  static const Color maleColor = Color.fromARGB(255, 122, 152, 194);
+  static const Color femaleColor = Color.fromARGB(255, 237, 160, 190);
+
+  static const Color invisible = Colors.transparent;
 }

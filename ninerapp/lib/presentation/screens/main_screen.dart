@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ninerapp/screens/babysitters_section.dart';
-import 'package:ninerapp/screens/children_section.dart';
-import 'package:ninerapp/screens/history_section.dart';
-import 'package:ninerapp/screens/home_section.dart';
-import 'package:ninerapp/screens/options_section.dart';
-import 'package:ninerapp/util/app_colors.dart';
-import 'package:ninerapp/util/app_textstyles.dart';
+import 'package:ninerapp/presentation/screens/babysitters_section.dart';
+import 'package:ninerapp/presentation/screens/children_section.dart';
+import 'package:ninerapp/presentation/screens/history_section.dart';
+import 'package:ninerapp/presentation/screens/home_section.dart';
+import 'package:ninerapp/presentation/screens/options_section.dart';
+import 'package:ninerapp/core/constants/app_colors.dart';
+import 'package:ninerapp/core/constants/app_textstyles.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
