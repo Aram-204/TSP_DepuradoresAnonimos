@@ -42,7 +42,7 @@ class ChildRepository implements IChildRepository {
         response = await _supabase
           .from('child')
           .select('*')
-          .order('birthdate', ascending: !order.contains('(mayor-menor)'));
+          .order('birthdate', ascending: order.contains('(mayor-menor)'));
       }
 
       final List<Child> children = (response as List)

@@ -14,3 +14,7 @@ Por que en data se guardan las implementaciones a interfaces:
 
 Por que en domain se guardan las interfaces:
  - Porque se define QUE se quiere hacer (regla de negocio)
+
+Para ejecutar app se puede con emulador de android
+O mas sencillo activando "depuración USB" en configuraciones de desarrollador de celular físico y activando "instalar vía USB"
+Al aceptar eso saldrá su dispositivo en los dispositivos vinculados
