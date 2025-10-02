@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ninerapp/dependency_inyection.dart';
 import 'package:ninerapp/domain/entities/child.dart';
 import 'package:ninerapp/domain/repositories/ichild_repository.dart';
-import 'package:ninerapp/presentation/screens/form_child.dart';
+import 'package:ninerapp/presentation/subscreens/child_form.dart';
 import 'package:ninerapp/core/constants/app_colors.dart';
 import 'package:ninerapp/core/constants/app_textstyles.dart';
 import 'package:ninerapp/presentation/widgets/child_card.dart';
@@ -127,7 +127,7 @@ class _ChildrenSectionState extends State<ChildrenSection> {
       onPressed: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => FormChildScreen(onSave: () {_loadChildren();}),
+            builder: (context) => ChildFormScreen(onSave: () {_loadChildren();}),
           ),
         );
       },

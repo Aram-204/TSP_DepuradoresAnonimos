@@ -55,7 +55,7 @@ class _MainScreenState extends State<MainScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            footerIcon('Inicio', FontAwesomeIcons.house),
+            footerIcon('Inicio', FontAwesomeIcons.solidHouse),
             footerIcon('Hijo(s)', FontAwesomeIcons.baby),
             footerIcon('Niñeros', FontAwesomeIcons.personBreastfeeding),
             footerIcon('Solicitudes', FontAwesomeIcons.personCircleQuestion),
@@ -77,7 +77,7 @@ class _MainScreenState extends State<MainScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(padding: const EdgeInsets.only(right: 2), child: Icon(icon, color: currentSection == sectionName ? AppColors.currentSectionColor : AppColors.fontColor, size: 20)),
+            Icon(icon, color: currentSection == sectionName ? AppColors.currentSectionColor : AppColors.fontColor, size: 20),
             Text(sectionName, style: AppTextstyles.footerText.copyWith(color: currentSection == sectionName ? AppColors.currentSectionColor : AppColors.fontColor)),
           ],
         ),

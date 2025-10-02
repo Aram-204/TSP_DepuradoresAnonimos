@@ -4,7 +4,7 @@ import 'package:ninerapp/core/constants/app_shadows.dart';
 import 'package:ninerapp/core/constants/app_textstyles.dart';
 import 'package:ninerapp/domain/entities/babysitter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ninerapp/presentation/screens/babysitter_info.dart';
+import 'package:ninerapp/presentation/subscreens/babysitter_info.dart';
 
 class BabysitterCard extends StatefulWidget {
   final Babysitter babysitter;
@@ -91,9 +91,9 @@ class _BabysitterCardState extends State<BabysitterCard> {
                     ]
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 SizedBox(
-                  height: 35, width: 35,
+                  height: 45, width: 45,
                   child: IconButton(
                     icon: Icon(isFavorite == true ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart, color: AppColors.green, size: 20),
                     onPressed: onFavoritePress, tooltip: isFavorite == true ? "Eliminar de favoritos" : "Añadir a favoritos", hoverColor: AppColors.invisible, color: AppColors.invisible
