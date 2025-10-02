@@ -36,3 +36,4 @@ flutter:
     - .env
     - assets/img/niño.png
     - assets/img/niña.png
+    - assets/img/babysitter.png
