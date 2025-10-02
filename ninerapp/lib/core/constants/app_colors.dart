@@ -5,14 +5,16 @@ class AppColors {
   static const Color secondary = Color.fromARGB(255, 207, 207, 207);
   static const Color fontColor = Color.fromARGB(255, 67, 67, 67);
   static const Color currentSectionColor = Color.fromARGB(255, 37, 0, 183);
+  static const Color currentListOption = Color.fromARGB(255, 43, 37, 68);
   static const Color indexInfoColor = Color.fromARGB(255, 222, 232, 255);
-  static const Color addChildColor = Color.fromARGB(255, 223, 201, 255);
+  static const Color addChildColor = Color.fromARGB(255, 237, 224, 255);
   static const Color seeBabysittersColor = Color.fromARGB(255, 201, 255, 219);
   static const Color historyColor = Color.fromARGB(255, 255, 201, 202);
   static const Color settingsColor = Color.fromARGB(255, 234, 234, 234);
-  static const Color helpColor = Color.fromARGB(255, 200, 200, 200);
+  static const Color requestsColor = Color.fromARGB(255, 250, 255, 207);
 
   static const Color red = Color.fromARGB(255, 153, 19, 19);
+  static const Color green = Color.fromARGB(255, 8, 156, 20);
   static const Color white = Color.fromARGB(255, 248, 248, 248);
   static const Color lightBlue = Color.fromARGB(255, 242, 233, 255);
   static const Color grey = Color.fromARGB(255, 158, 158, 158);
@@ -21,5 +23,6 @@ class AppColors {
   static const Color maleColor = Color.fromARGB(255, 122, 152, 194);
   static const Color femaleColor = Color.fromARGB(255, 237, 160, 190);
 
+  static const Color blueTransparent = Color.fromARGB(80, 37, 0, 183);
   static const Color invisible = Colors.transparent;
 }
