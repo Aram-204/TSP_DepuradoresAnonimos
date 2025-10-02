@@ -23,7 +23,7 @@ class ChildCard extends StatelessWidget {
     if (child.disabilityFisica) totalDisabilities++;
     if (child.disabilityAuditiva) totalDisabilities++;
     if (child.disabilityVisual) totalDisabilities++;
-    if (child.otherDisability != null && child.otherDisability!.isNotEmpty) totalDisabilities++;
+    if (child.otherDisabilities != null && child.otherDisabilities!.isNotEmpty) totalDisabilities++;
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
