@@ -74,9 +74,6 @@ class _ChildrenSectionState extends State<ChildrenSection> {
         padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
         child: Column(
           children: [
-            SizedBox(height: 10),
-            changeOrderContainer(),
-            SizedBox(height: 10),
             if (_isLoading)
               Expanded(child: Center(child: CircularProgressIndicator(color: AppColors.primary)))
             else if (_errorMessage != null)
@@ -85,10 +82,13 @@ class _ChildrenSectionState extends State<ChildrenSection> {
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Text("No tienes hijos registrados...", style: AppTextstyles.appBarText)],
+                  children: [Center(child: Text("No tienes hijos registrados...", style: AppTextstyles.appBarText))],
                 ),
               ),
             ] else ... [
+              SizedBox(height: 10),
+              changeOrderContainer(),
+              SizedBox(height: 10),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -99,11 +99,11 @@ class _ChildrenSectionState extends State<ChildrenSection> {
                           onEdit: () {
                           },
                           onDelete: () {
-                            // TODO pedir confirmacion antes de eliminar hijo
+                            // HACER pedir confirmacion antes de eliminar hijo
                             _childRepository.deleteChild(child.id!).then((_) {
                               _loadChildren();
                             }).catchError((e) {
-                              // TODO mostrar modal diciendo que ocurrio un error al borrar al hijo
+                              // HACER mostrar modal diciendo que ocurrio un error al borrar al hijo
                             });
                           },
                         );
