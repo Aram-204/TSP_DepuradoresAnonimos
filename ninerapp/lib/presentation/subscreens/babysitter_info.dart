@@ -84,9 +84,9 @@ class _BabysitterInfoScreenState extends State<BabysitterInfoScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Cancelar', style: AppTextstyles.buttonText.copyWith(color: AppColors.white)),
+            Text('Volver', style: AppTextstyles.buttonText.copyWith(color: AppColors.white)),
             const SizedBox(width: 15),
-            const Icon(FontAwesomeIcons.xmark, size: 16, color: AppColors.white),
+            const Icon(FontAwesomeIcons.arrowLeft, size: 16, color: AppColors.white),
           ]
         ),
       )

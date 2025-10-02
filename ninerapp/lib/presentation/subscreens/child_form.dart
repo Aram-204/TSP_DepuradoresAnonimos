@@ -8,19 +8,19 @@ import 'package:ninerapp/dependency_inyection.dart';
 import 'package:ninerapp/domain/entities/child.dart';
 import 'package:ninerapp/domain/repositories/ichild_repository.dart';
 
-class FormChildScreen extends StatefulWidget {
+class ChildFormScreen extends StatefulWidget {
   final VoidCallback onSave;
 
-  const FormChildScreen({
+  const ChildFormScreen({
     super.key,
     required this.onSave,
   });
 
   @override
-  State<FormChildScreen> createState() => _FormChildScreenState();
+  State<ChildFormScreen> createState() => _ChildFormScreenState();
 }
 
-class _FormChildScreenState extends State<FormChildScreen> {
+class _ChildFormScreenState extends State<ChildFormScreen> {
   // HACER luego poner para que se pueda usar para editar y obtener datos de parametros
   final IChildRepository _childRepository = getIt<IChildRepository>();
   final TextEditingController _nameController = TextEditingController();
@@ -79,27 +79,32 @@ class _FormChildScreenState extends State<FormChildScreen> {
             Text("Sexo:", style: AppTextstyles.bodyText),
             Row(
               children: [
-                Radio<String>(
-                  value: 'Mujer',
-                  groupValue: _selectedGender,
-                  onChanged: (String? value) {
-                    setState(() {
-                      _selectedGender = value;
-                    });
-                  },
+                Expanded(
+                  child: RadioGroup<String>(
+                    groupValue: _selectedGender,
+                    onChanged: (String? value) {
+                      setState(() {
+                        _selectedGender = value;
+                      });
+                    },
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: [
+                            Radio<String>(value: 'Mujer'),
+                            Text('Mujer', style: AppTextstyles.bodyText),
+                          ],
+                        ),
+                        Row(
+                        children: [
+                            Radio<String>(value: 'Hombre'),
+                            Text('Hombre', style: AppTextstyles.bodyText),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                const Text('Mujer', style: AppTextstyles.bodyText),
-                const SizedBox(width: 20),
-                Radio<String>(
-                  value: 'Hombre',
-                  groupValue: _selectedGender,
-                  onChanged: (String? value) {
-                    setState(() {
-                      _selectedGender = value;
-                    });
-                  },
-                ),
-                const Text('Hombre', style: AppTextstyles.bodyText),
               ],
             ),
             const SizedBox(height: 20),
