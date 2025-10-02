@@ -140,7 +140,7 @@ class _ChildrenSectionState extends State<ChildrenSection> {
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 0),
-        width: 150,
+        width: 120,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

@@ -127,11 +127,45 @@ class _FormChildScreenState extends State<FormChildScreen> {
             _buildTextField(_otherDisabilityController, "Ingresar otra(s) discapacidad(es)"),
             const SizedBox(height: 30),
 
-            Center(child: saveChildButton()),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                cancelButton(),
+                saveChildButton()
+              ]
+            ),
             const SizedBox(height: 15),
           ],
         ),
       ),
+    );
+  }
+
+  ElevatedButton cancelButton() {
+    return ElevatedButton(
+      onPressed: () {
+        if (!mounted) return;
+        Navigator.of(context).pop();
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.grey,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 3,
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 0),
+        width: 90,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Cancelar', style: AppTextstyles.buttonText.copyWith(color: AppColors.white)),
+            const SizedBox(width: 15),
+            const Icon(FontAwesomeIcons.xmark, size: 16, color: AppColors.white),
+          ]
+        ),
+      )
     );
   }
 
@@ -173,7 +207,7 @@ class _FormChildScreenState extends State<FormChildScreen> {
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 0),
-        width: 120,
+        width: 90,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
