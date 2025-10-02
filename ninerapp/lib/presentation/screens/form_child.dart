@@ -21,7 +21,7 @@ class FormChildScreen extends StatefulWidget {
 }
 
 class _FormChildScreenState extends State<FormChildScreen> {
-  // TODO luego poner para que se pueda usar para editar y obtener datos de parametros
+  // HACER luego poner para que se pueda usar para editar y obtener datos de parametros
   final IChildRepository _childRepository = getIt<IChildRepository>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -156,7 +156,7 @@ class _FormChildScreenState extends State<FormChildScreen> {
             disabilityFisica: newDisabilityFisica,
             disabilityAuditiva: newDisabilityAuditiva,
             disabilityVisual: newDisabilityVisual,
-            otherDisability: newOtherDisability,
+            otherDisabilities: newOtherDisability,
           )
         );
 

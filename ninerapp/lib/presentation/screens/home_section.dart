@@ -16,7 +16,7 @@ class _HomeSectionState extends State<HomeSection> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Niñerapp', style: AppTextstyles.appBarText),
+        title: const Text('NiñerApp', style: AppTextstyles.appBarText),
         centerTitle: false,
         backgroundColor: AppColors.primary,
       ),
@@ -49,7 +49,7 @@ class _HomeSectionState extends State<HomeSection> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  iconInfo(AppColors.helpColor, FontAwesomeIcons.solidCircleQuestion, "Opciones"),
+                  iconInfo(AppColors.requestsColor, FontAwesomeIcons.personCircleQuestion, "Solicitudes"),
                 ],
               ),
               SizedBox(height: 20),

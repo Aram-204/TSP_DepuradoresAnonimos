@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ninerapp/presentation/screens/babysitters_section.dart';
 import 'package:ninerapp/presentation/screens/children_section.dart';
-import 'package:ninerapp/presentation/screens/history_section.dart';
+import 'package:ninerapp/presentation/screens/requests_section.dart';
 import 'package:ninerapp/presentation/screens/home_section.dart';
 import 'package:ninerapp/presentation/screens/options_section.dart';
 import 'package:ninerapp/core/constants/app_colors.dart';
@@ -16,7 +16,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  // TODO hay que hacer un callback para enviar a homesection para que al presionar los botones del inicio se vaya tambien a las diferentes secciones de la app
+  // HACER hay que hacer un callback para enviar a homesection para que al presionar los botones del inicio se vaya tambien a las diferentes secciones de la app
   String currentSection = 'Inicio';
 
   @override
@@ -37,7 +37,7 @@ class _MainScreenState extends State<MainScreen> {
         'Inicio' => HomeSection(),
         'Hijo(s)' => ChildrenSection(),
         'Niñeros' => BabysittersSection(),
-        'Historial' => HistorySection(),
+        'Solicitudes' => RequestsSection(),
         'Opciones' => OptionsSection(),
         _ => HomeSection(),
       },
@@ -58,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
             footerIcon('Inicio', FontAwesomeIcons.house),
             footerIcon('Hijo(s)', FontAwesomeIcons.baby),
             footerIcon('Niñeros', FontAwesomeIcons.personBreastfeeding),
-            footerIcon('Historial', FontAwesomeIcons.clock),
+            footerIcon('Solicitudes', FontAwesomeIcons.personCircleQuestion),
             footerIcon('Opciones', FontAwesomeIcons.gear),
           ]
         ),
