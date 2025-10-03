@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ninerapp/core/constants/app_colors.dart';
 import 'package:ninerapp/core/constants/app_textstyles.dart';
 import 'package:ninerapp/domain/entities/babysitter.dart';
+import 'package:ninerapp/presentation/subscreens/request_babysitter.dart';
 
 class BabysitterInfoScreen extends StatefulWidget {
   final Babysitter babysitter;
@@ -17,11 +18,6 @@ class BabysitterInfoScreen extends StatefulWidget {
 }
 
 class _BabysitterInfoScreenState extends State<BabysitterInfoScreen> {
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +46,7 @@ class _BabysitterInfoScreenState extends State<BabysitterInfoScreen> {
               Text("Otra(s):", style: AppTextstyles.childCardText),
               Text(" - ${widget.babysitter.expOtherDisabilities!}", style: AppTextstyles.childCardText),
             ],
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -96,8 +92,11 @@ class _BabysitterInfoScreenState extends State<BabysitterInfoScreen> {
   ElevatedButton requestService() {
     return ElevatedButton(
       onPressed: () async {
-        // TODO abrir ventana de solicitud de servicio
-        // hacer widget de boton para no repetir codigo
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => RequestBabysitterScreen(babysitter: widget.babysitter),
+          ),
+        );
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.currentSectionColor,
