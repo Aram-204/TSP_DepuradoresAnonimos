@@ -45,7 +45,12 @@ class ChildCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(child.name, style: AppTextstyles.childCardText, maxLines: 1, overflow: TextOverflow.ellipsis),
-                Text('${child.getAge()} años', style: AppTextstyles.childCardText),
+                Text(child.getAge() <= 0 ?
+                  child.getAge() == 0 ?
+                    'Recién nacido' :
+                    '${child.getAge().abs()} meses' :
+                  '${child.getAge()} años',
+                style: AppTextstyles.childCardText),
                 Text(totalDisabilities == 0 ? 'Sin discapacidades' : totalDisabilities == 1 ? '1 Discapacidad' : totalDisabilities < 4 ? '$totalDisabilities Discapacidades' : '3+ Discapacidades', style: AppTextstyles.childCardText),
               ],
             ),

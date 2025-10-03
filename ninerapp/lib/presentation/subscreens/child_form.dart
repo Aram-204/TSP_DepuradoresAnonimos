@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ninerapp/core/constants/app_colors.dart';
 import 'package:ninerapp/core/constants/app_shadows.dart';
 import 'package:ninerapp/core/constants/app_textstyles.dart';
+import 'package:ninerapp/core/util/time_number_format.dart';
 import 'package:ninerapp/dependency_inyection.dart';
 import 'package:ninerapp/domain/entities/child.dart';
 import 'package:ninerapp/domain/repositories/ichild_repository.dart';
@@ -28,6 +29,7 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
   final TextEditingController _birthdateController = TextEditingController();
   final TextEditingController _otherDisabilityController = TextEditingController();
 
+  String _birthdateText = "";
   String? _selectedGender = 'Mujer';
   bool _disabilityFisica = false;
   bool _disabilityAuditiva = false;
@@ -88,7 +90,7 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
                       });
                     },
                     child: Column(
-                      children: <Widget>[
+                      children: [
                         Row(
                           children: [
                             Radio<String>(value: 'Mujer'),
@@ -179,7 +181,7 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
       onPressed: () async {
         final String newName = _nameController.text.trim();
         final String newLastName = _lastNameController.text.trim();
-        final DateTime newBirthdate = DateFormat('dd-MM-yyyy').parse(_birthdateController.text.trim());
+        final DateTime newBirthdate = DateFormat('dd-MM-yyyy').parse(_birthdateText.trim());
         final bool newIsFemale = _selectedGender == 'Mujer';
         final bool newDisabilityFisica = _disabilityFisica;
         final bool newDisabilityAuditiva = _disabilityAuditiva;
@@ -234,7 +236,8 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
     );
     if (picked != null) {
       setState(() {
-        _birthdateController.text = "${picked.day}-${picked.month}-${picked.year}";
+        _birthdateController.text = "${TimeNumberFormat.formatTwoDigits(picked.day)}-${TimeNumberFormat.getMonthName(picked.month)}-${picked.year}";
+        _birthdateText = "${picked.day}-${picked.month}-${picked.year}";
       });
     }
   }

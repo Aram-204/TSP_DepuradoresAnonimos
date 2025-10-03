@@ -41,4 +41,18 @@ class Child extends Person {
       'other_disabilities': otherDisabilities,
     });
   }
+
+  @override
+  int getAge() {
+    int age = super.getAge();
+    if (age == 0) {
+      final currentDate = DateTime.now();
+      int age = currentDate.month - birthdate.month;
+      if (currentDate.day < birthdate.day) {
+        age--;
+      }
+      return age * -1;
+    }
+    return age;
+  }
 }
